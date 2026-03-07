@@ -52,7 +52,8 @@ var convert = function (font) {
     var scale = 1; //(1000 * 100) / ((font.unitsPerEm || 2048) * 72);
     var result = {};
     result.glyphs = {};
-    result.mapping = {};
+    result.charMap = {};
+    result.indexMap = {};
 
     var restriction = {
         range: null,
@@ -107,7 +108,8 @@ var convert = function (font) {
                     glyph.path.commands = reverseCommands(glyph.path.commands);
                 }
                 token.objs = glyph.path.commands;
-                result.mapping[glyphCharacter] = String(unicode);
+                result.charMap[glyphCharacter] = String(unicode);
+                result.indexMap[glyph.index] = String(unicode);
                 result.glyphs[unicode] = token;
             }
         });
