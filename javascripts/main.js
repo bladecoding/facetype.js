@@ -114,6 +114,22 @@ var convert = function (font) {
             }
         });
     });
+
+    // symbol font e.g. wingdings
+    // create a mapping for ascii to the symbols
+    if (font.tables.os2 && (font.tables.os2.ulCodePageRange1 & 0x80000000)) {
+        Object.keys(result.glyphs).forEach((id, glyph) => {
+            if (id & 0xF000) {
+                var overId = id & 0xff;
+                if (!result.glyphs[overId]) {
+                    var glyphCharacter = String.fromCharCode(id);
+                    result.charMap[glyphCharacter] = String(id);
+                    result.glyphs[overId] = glyph;
+                }
+            }
+        });
+    }
+
     var firstOr = (arr,  def) => arr.length == 1 ? arr[0] : def;
     result.gposPair = (font.tables.gpos && font.tables.gpos.lookups) ? firstOr(font.tables.gpos.lookups.filter(e => e.lookupType == 2)) : undefined;
     result.familyName = font.familyName;
