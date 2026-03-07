@@ -52,6 +52,7 @@ var convert = function (font) {
     var scale = 1; //(1000 * 100) / ((font.unitsPerEm || 2048) * 72);
     var result = {};
     result.glyphs = {};
+    result.mapping = {};
 
     var restriction = {
         range: null,
@@ -106,12 +107,13 @@ var convert = function (font) {
                     glyph.path.commands = reverseCommands(glyph.path.commands);
                 }
                 token.objs = glyph.path.commands;
-                result.glyphs[String.fromCharCode(unicode)] = token;
+                result.mapping[glyphCharacter] = unicode;
+                result.glyphs[unicode] = token;
             }
         });
     });
     var firstOr = (arr,  def) => arr.length == 1 ? arr[0] : def;
-    result.gpos = (font.tables.gpos && font.tables.gpos.lookups) ? firstOr(font.tables.gpos.lookups.filter(e => e.lookupType == 2)) : undefined;
+    result.gposPair = (font.tables.gpos && font.tables.gpos.lookups) ? firstOr(font.tables.gpos.lookups.filter(e => e.lookupType == 2)) : undefined;
     result.familyName = font.familyName;
     result.ascender = (font.ascender * scale);
     result.descender = (font.descender * scale);
