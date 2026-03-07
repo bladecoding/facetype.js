@@ -107,7 +107,7 @@ var convert = function (font) {
                     glyph.path.commands = reverseCommands(glyph.path.commands);
                 }
                 token.objs = glyph.path.commands;
-                result.mapping[glyphCharacter] = unicode;
+                result.mapping[glyphCharacter] = String(unicode);
                 result.glyphs[unicode] = token;
             }
         });
