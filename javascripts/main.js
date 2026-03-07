@@ -121,10 +121,9 @@ var convert = function (font) {
         Object.keys(result.glyphs).forEach((id, glyph) => {
             if (id & 0xF000) {
                 var overId = id & 0xff;
-                if (!result.glyphs[overId]) {
-                    var glyphCharacter = String.fromCharCode(overId);
+                var glyphCharacter = String.fromCharCode(overId);
+                if (!result.charMap[glyphCharacter]) {
                     result.charMap[glyphCharacter] = String(id);
-                    result.glyphs[overId] = glyph;
                 }
             }
         });
