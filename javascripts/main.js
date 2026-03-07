@@ -122,8 +122,8 @@ var convert = function (font) {
             if (id & 0xF000) {
                 var overId = id & 0xff;
                 if (!result.glyphs[overId]) {
-                    var glyphCharacter = String.fromCharCode(id);
-                    result.charMap[glyphCharacter] = String(id);
+                    var glyphCharacter = String.fromCharCode(overId);
+                    result.charMap[glyphCharacter] = String(overId);
                     result.glyphs[overId] = glyph;
                 }
             }
