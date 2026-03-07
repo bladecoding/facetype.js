@@ -123,7 +123,7 @@ var convert = function (font) {
                 var overId = id & 0xff;
                 if (!result.glyphs[overId]) {
                     var glyphCharacter = String.fromCharCode(overId);
-                    result.charMap[glyphCharacter] = String(overId);
+                    result.charMap[glyphCharacter] = String(id);
                     result.glyphs[overId] = glyph;
                 }
             }
