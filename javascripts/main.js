@@ -272,7 +272,7 @@ var convertSvg = function (svgXml) {
             let unicode = v.attrs.unicode.charCodeAt(0);
             let glyphCharacter = v.attrs.unicode[0];
 
-            token.ha = Number(v['horiz-adv-x'] ?? font.attrs['horiz-adv-x']);
+            token.ha = Number(v.attrs['horiz-adv-x'] ?? font.attrs['horiz-adv-x']);
             token.objs = pathToObjs(glyphCharacter, v.attrs.d);
             let xs = _.flatMap(token.objs, o => [o.x, o.x1, o.x2]);
             let ys = _.flatMap(token.objs, o => [o.y, o.y1, o.y2]);
