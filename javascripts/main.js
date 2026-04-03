@@ -15,16 +15,16 @@ convertButton.onclick = function () {
         reader.addEventListener('load', function (event) {
             let result;
 
-            if (file.type == "font/ttf") {
-                var font = opentype.parse(event.target.result);
-                result = convert(font);
-            } else if (file.type == "image/svg+xml") {
+            if (file.type == "image/svg+xml" || file.name.endsWith(".svg") ) {
                 var decoder = new TextDecoder('utf-8');
                 var str = decoder.decode(event.target.result);
                 const parser = new DOMParser()
                 const obj = parser.parseFromString(str, "image/svg+xml");
                 result = convertSvg(obj);
 
+            } else if (file.type == "font/ttf" || file.name.endsWith(".otf") || file.name.endsWith(".ttf")) {
+                var font = opentype.parse(event.target.result);
+                result = convert(font);
             } else {
                 alert("Unsupported file type: " + file.type);
                 return;
